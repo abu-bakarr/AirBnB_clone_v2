@@ -45,5 +45,14 @@ def display_html(n):
         return render_template('5-number.html', num=n)
 
 
+@app.route('/number_odd_or_even/<int:n>')
+def number_odd_or_even_HBNB(n):
+    if n % 2 == 0:
+        val = "even"
+    else:
+        val = "odd"
+    return render_template('6-number_odd_or_even.html', num=n, val=val)
+
+
 if __name__ == '__main__':
     app.run()
