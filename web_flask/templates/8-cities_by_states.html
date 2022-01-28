@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HBNB</title>
+</head>
+
+<body>
+    <h1>List of States</h1>
+
+    <ul>
+        {% for key in dicty|sort(attribute='name') %}
+        <li>{{ key.id }}: <b>{{ key.name }}</b>
+            <UL>
+                {% for city in key.cities|sort(attribute='name') %}
+                <li>{{ city.id }}: <b>{{ city.name }}</b></li>
+                {% endfor %}
+            </UL>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+
+</html>
