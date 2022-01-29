@@ -17,9 +17,9 @@ def close_storage(self):
 @app.route('/states_list', strict_slashes=False)
 def h1():
     """ Lists States """
-    states = list(storage.all('State').values())
-    states.sort(key=lambda state: state.name)
-    return render_template('7-states_list.html', states=states)
+    s = list(storage.all('State').values())
+    s.sort(key=lambda state: state.name)
+    return render_template('7-states_list.html', slist=s)
 
 
 if __name__ == '__main__':
