@@ -1,26 +1,27 @@
 #!/usr/bin/python3
+""" Starts Flask. """
 from flask import Flask
-
 
 app = Flask(__name__)
 
+
 @app.route('/', strict_slashes=False)
-def hello():
-    """ DISPLAY Hello HBNB!!! """
-    return ("Hello HBNB!")
+def hello_HBNB():
+    """ Hello HBNB!!! """
+    return "Hello HBNB!"
 
 
 @app.route('/hbnb', strict_slashes=False)
 def HBNB():
-    """ DISPLAY HBNB!!! """
-    return ("HBNB")
+    """ HBNB!!! """
+    return "HBNB"
 
 
-@app.route('/c/<text>', strict_slashes=False)
-def c_text(text):
-    """c/text route"""
-    text = text.replace('_', ' ')
-    return 'C {}'.format(text)
+@app.route('/c/<phrase>', strict_slashes=False)
+def c(phrase):
+    """ C + Phrases!!! """
+    return 'C {}'.format(phrase.replace('_', ' '))
+
 
 if __name__ == '__main__':
     app.run()
