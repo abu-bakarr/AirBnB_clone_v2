@@ -16,25 +16,24 @@ def HBNB():
     return ("HBNB")
 
 
-@app.route('/c/<text>', strict_slashes=False)
-def c_text(text):
-    """c/text route"""
-    text = text.replace('_', ' ')
-    return 'C {}'.format(text)
+@app.route('/c/<phrase>', strict_slashes=False)
+def c(phrase):
+    """ C + Phrases!!! """
+    return 'C {}'.format(phrase.replace('_', ' '))
 
 
-@app.route('/python', strict_slashes=False)
-@app.route('/python/<text>', strict_slashes=False)
-def python_text(text='is cool'):
-    """python/text route"""
-    text = text.replace('_', ' ')
-    return 'Python {}'.format(text)
+@app.route('/python/', strict_slashes=False)
+@app.route('/python/<phrase>', strict_slashes=False)
+def python(phrase='is cool'):
+    """ Python + phrases!!!(is cool by default) """
+    return 'Python {}'.format(phrase.replace('_', ' '))
 
 
-@app.route('/number/<int:n>', strict_slashes=False)
-def number_n(n):
-    """number/n route"""
-    return "{} is a number".format(n)
+@app.route('/number/<int:num>', strict_slashes=False)
+def number(num):
+    """ It's a number! """
+    if type(num) == int:
+        return ("{} is a number".format(num))
 
 
 if __name__ == '__main__':
