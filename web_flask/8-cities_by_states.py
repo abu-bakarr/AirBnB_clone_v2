@@ -1,21 +1,32 @@
 #!/usr/bin/python3
-from models import storage
-from models.state import State
+""" Starts Flask. """
 from flask import Flask, render_template
-
+from models import storage
+from models import State, City
 app = Flask(__name__)
 
 
-@app.route('/cities_by_states', strict_slashes=False)
-def hello_HBNB():
-    all_states = storage.all(State)
-    states = list(all_states.values())
-    return render_template('8-cities_by_states.html', dicty=states)
-
-
 @app.teardown_appcontext
-def home_teradown(exit):
+def close_storage(self):
+    """ Remove the current SQLAlchemy Session. """
     storage.close()
+
+
+@app.route('/states', strict_slashes=False)
+@app.route('/states/<_id>', strict_slashes=False)
+def cities_by_states(_id=None):
+    """ Cities inside each state. """
+    states = list(storage.all('State').values())
+    states.sort(key=lambda state: state.name)
+    cities = list(storage.all('City').values())
+    cities.sort(key=lambda city: city.name)
+
+    state_name = None
+    for state in states:
+        if state.id == _id:
+            state_name = state.name
+    return render_template('9-states.html', states=states, cities=cities,
+                           _id=_id, state_name=state_name)
 
 
 if __name__ == '__main__':
