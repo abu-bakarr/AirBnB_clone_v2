@@ -1,27 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<HTML lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HBNB</title>
-</head>
+<HEAD>
+    <TITLE>HBNB</TITLE>
+</HEAD>
 
-<body>
-    <h1>List of States</h1>
-
-    <ul>
-        {% for key in dicty|sort(attribute='name') %}
-        <li>{{ key.id }}: <b>{{ key.name }}</b>
+<BODY>
+    <H1>States</H1>
+    <UL>
+        {% for run in list1 %}
+        <LI>{{ run.id }}:
+            <B>{{ run.name }}</B>
             <UL>
-                {% for city in key.cities|sort(attribute='name') %}
-                <li>{{ city.id }}: <b>{{ city.name }}</b></li>
-                {% endfor %}
+                {% for i in list2 %} {% if i.state_id == run.id %}
+                <LI>{{ i.id }}:
+                    <B>{{ i.name }}</B>
+                </LI>
+                {% endif %} {% endfor %}
             </UL>
-        </li>
+        </LI>
         {% endfor %}
-    </ul>
-</body>
+    </UL>
+</BODY>
 
-</html>
+</HTML>
