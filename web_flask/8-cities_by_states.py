@@ -1,33 +1,36 @@
 #!/usr/bin/python3
-""" Starts Flask. """
+"""Flask module"""
 from flask import Flask, render_template
 from models import storage
-from models import State, City
+from models.city import City
+from models.state import State
+
+
 app = Flask(__name__)
 
 
+@app.route('/cities_by_states', strict_slashes=False)
+def states_list():
+    """Main page rout"""
+    states = storage.all(State).values()
+    cities = storage.all(City).values()
+    data = []
+    for state in states:
+        tmp = {}
+        tmp['state'] = state
+        l = []
+        for city in cities:
+            if city.state_id == state.id:
+                l.append(city)
+        tmp['cities'] = l
+        data.append(tmp)
+    return render_template('8-cities_by_states.html', data=data)
+
+
 @app.teardown_appcontext
-def close_storage(self):
-    """ Remove the current SQLAlchemy Session. """
+def storage_close(exception):
+    """Teardown"""
     storage.close()
 
-
-@app.route('/states', strict_slashes=False)
-@app.route('/states/<_id>', strict_slashes=False)
-def cities_by_states(_id=None):
-    """ Cities inside each state. """
-    states = list(storage.all('State').values())
-    states.sort(key=lambda state: state.name)
-    cities = list(storage.all('City').values())
-    cities.sort(key=lambda city: city.name)
-
-    state_name = None
-    for state in states:
-        if state.id == _id:
-            state_name = state.name
-    return render_template('9-states.html', states=states, cities=cities,
-                           _id=_id, state_name=state_name)
-
-
 if __name__ == '__main__':
-    app.run()
+        app.run(host='0.0.0.0', port='5000')

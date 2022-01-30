@@ -8,15 +8,15 @@
 <BODY>
     <H1>States</H1>
     <UL>
-        {% for run in list1 %}
-        <LI>{{ run.id }}:
-            <B>{{ run.name }}</B>
+        {% for state in data|sort(attribute='state.name') %}
+        <LI>{{ state['state'].id }}:
+            <B>{{ state['state'].name }}</B>
             <UL>
-                {% for i in list2 %} {% if i.state_id == run.id %}
-                <LI>{{ i.id }}:
-                    <B>{{ i.name }}</B>
+                {% for city in state['cities']|sort(attribute='name') %}
+                <LI>{{ city.id }}:
+                    <B>{{ city.name }}</B>
                 </LI>
-                {% endif %} {% endfor %}
+                {% endfor %}
             </UL>
         </LI>
         {% endfor %}
